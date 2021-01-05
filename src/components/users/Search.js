@@ -8,6 +8,8 @@ export default class Search extends Component {
 
     static propTypes = {
         searchUsers: PropTypes.func.isRequired,
+        clearUsers: PropTypes.func.isRequired,
+        showClearButton: PropTypes.bool.isRequired,
     }
     //if you don't use an arrow function for the onSubmit function, you will need to include the e.preventDefault() behavior, as well as having to bind the "this" keyword to the function. You'll also need to put the .bind(this) on the form as an attribute
     onSubmit = (e) => {
@@ -23,6 +25,7 @@ export default class Search extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
     render() {
+        //the conditional is saying, if showClearButton is true (if this.state.users.length > 0 (this is in the app.js) then show the clearbutton, else show nothing)
         return (
             <div>
                 <form onSubmit={this.onSubmit} className="form">
@@ -36,9 +39,16 @@ export default class Search extends Component {
                     <input type="submit"
                         value="Search"
                         className="btn btn-dark btn-block" />
-
                 </form>
+                {
+                    this.props.showClearButton
+                        ?
+                        <button className="btn btn-light btn-block" onClick={this.props.clearUsers}>Clear</button>
+                        :
+                        null
+                }
             </div>
+
         )
     }
 }
