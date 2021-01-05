@@ -6,9 +6,11 @@ import PropTypes from 'prop-types'
 export default function Navbar({ icon, title }) {
 
     return (
-        <nav className='navbar bg-primary'>
-            <h1><i className={icon}></i> {title}</h1>
-        </nav>
+        <div>
+            <nav className='navbar bg-light'>
+                <h1><i className={icon}></i> {title}</h1>
+            </nav>
+        </div>
     )
 }
 

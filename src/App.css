@@ -3,7 +3,7 @@
 /* Global Styles */
 :root {
   --primary-color: #dc3545;
-  --dark-color: #333333;
+  --dark-color: rgba(2, 55, 126, 0.65);
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
   --success-color: #28a745;
@@ -19,7 +19,7 @@ body {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-color: #fff;
+  background-color:lightblue;
   color: #333;
 }
 
@@ -112,8 +112,9 @@ img {
 /* Cards */
 .card {
   padding: 1rem;
-  border: #ccc 1px dotted;
+  border: rgba(0, 39, 90, 0.329) 5px solid;
   margin: 0.7rem 0;
+  background-color: #f4f4f4;
 }
 
 /* List */
