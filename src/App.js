@@ -13,9 +13,9 @@ export default class App extends Component {
     loading: false
   }
 
-  //lifecycle method component did mount
+  /*lifecycle method component did mount
+  //this will allow there to be users showing up on the page when you go to the site
   async componentDidMount() {
-
     this.setState({
       //this is loading(set to true) while gathering the data from the get requests, once the data is received, it will be set back to false
       loading: true
@@ -30,7 +30,18 @@ export default class App extends Component {
       loading: false
     })
   }
+  */
 
+  //Search Github users
+  searchUsers = async (text) => {
+    this.setState({ loading: true })
+    const res = await axios.get(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_ID}`)
+
+    this.setState({
+      users: res.data.items,
+      loading: false
+    })
+  }
 
   render() {
     //we are passing in loading and users from our state, as props to the Users component
@@ -38,7 +49,7 @@ export default class App extends Component {
       <div className='App'>
         <Navbar />
         <div className="container">
-          <Search />
+          <Search searchUsers={this.searchUsers} />
           <Users loading={this.state.loading} users={this.state.users} />
         </div>
 
