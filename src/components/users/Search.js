@@ -10,14 +10,20 @@ export default class Search extends Component {
         searchUsers: PropTypes.func.isRequired,
         clearUsers: PropTypes.func.isRequired,
         showClearButton: PropTypes.bool.isRequired,
+        setAlert: PropTypes.func.isRequired,
     }
     //if you don't use an arrow function for the onSubmit function, you will need to include the e.preventDefault() behavior, as well as having to bind the "this" keyword to the function. You'll also need to put the .bind(this) on the form as an attribute
     onSubmit = (e) => {
         e.preventDefault()
-        //We are calling a "searchUsers" function in the props and passing in the state of text
-        this.props.searchUsers(this.state.text)
-        //setting state back to an empty string
-        this.setState({ text: "" })
+        if (this.state.text === "") {
+            this.props.setAlert('Please enter a name', 'danger')
+        } else {
+            //We are calling a "searchUsers" function in the props and passing in the state of text
+            this.props.searchUsers(this.state.text)
+            //setting state back to an empty string
+            this.setState({ text: "" })
+        }
+
     }
 
     onChange = (e) => {
@@ -25,25 +31,28 @@ export default class Search extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
     render() {
+        const { showClearButton, clearUsers } = this.props
         //the conditional is saying, if showClearButton is true (if this.state.users.length > 0 (this is in the app.js) then show the clearbutton, else show nothing)
         return (
             <div>
                 <form onSubmit={this.onSubmit} className="form">
-                    <input type="text"
+                    <input
+                        type="text"
                         name="text"
                         placeholder="Search Users..."
                         value={this.state.text}
                         onChange={this.onChange}
                     />
 
-                    <input type="submit"
+                    <input
+                        type="submit"
                         value="Search"
                         className="btn btn-dark btn-block" />
                 </form>
                 {
-                    this.props.showClearButton
+                    showClearButton
                         ?
-                        <button className="btn btn-light btn-block" onClick={this.props.clearUsers}>Clear</button>
+                        <button className="btn btn-light btn-block" onClick={clearUsers}>Clear</button>
                         :
                         null
                 }

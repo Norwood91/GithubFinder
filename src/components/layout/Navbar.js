@@ -1,6 +1,7 @@
 //Create the navbar component, and then export it, so it can be imported into app.js
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 //another way to destructure the props is to pass it as an argument to the UserItem function like so
 export default function Navbar({ icon, title }) {
@@ -8,7 +9,11 @@ export default function Navbar({ icon, title }) {
     return (
         <div>
             <nav className='navbar bg-light'>
-                <h1><i className={icon}></i> {title}</h1>
+                <Link to="/"><h1><i className={icon}></i> {title}</h1></Link>
+                <ul>
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/about">About</Link></li>
+                </ul>
             </nav>
         </div>
     )

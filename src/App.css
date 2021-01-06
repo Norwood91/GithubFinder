@@ -124,6 +124,7 @@ img {
 
 .list li {
   padding-bottom: 0.3rem;
+  
 }
 
 /* Padding */
@@ -364,13 +365,13 @@ table th {
 }
 
 .navbar a {
-  color: #fff;
+  color:black;
   padding: 0.45rem;
   margin: 0 0.25rem;
 }
 
 .navbar a:hover {
-  color: var(--light-color);
+  color: var(--dark-color);
 }
 
 .navbar .welcome span {
