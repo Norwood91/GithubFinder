@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Spinner from "../layout/Spinner"
-import PropTypes from 'prop-types'
+import Repos from "../repos/Repos"
 import { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -8,24 +8,20 @@ import { Link } from 'react-router-dom'
 export default class User extends Component {
     componentDidMount() {
         this.props.getUser(this.props.match.params.login)
-
+        this.props.getUserRepos(this.props.match.params.login)
     }
 
-    static propTypes = {
-        loading: PropTypes.bool,
-        user: PropTypes.object.isRequired,
-        getUser: PropTypes.func.isRequired,
-    }
+    
     render() {
         const { name, avatar_url, location, bio, html_url, followers, following, hireable, company } = this.props.user
 
-        const { loading } = this.props
+        const { loading, repos } = this.props
 
         if (loading) return <Spinner />
 
         return (
             <Fragment>
-                <Link to="/" className="btn btn-dark">Back to Search</Link>
+                <Link to="/" className="btn btn-dark text-center">Back to Search</Link>
                 <div className="card grid-2">
                     <div className="all-center">
                         <img src={avatar_url} className="round-img" alt="user profile" style={{ width: '150px' }} />
@@ -36,8 +32,7 @@ export default class User extends Component {
                     <div>
                         {
                             { bio } && <Fragment>
-                                <h3>{name}'s Bio:</h3>
-                                <hr />
+                                <h3 style={{borderBottom: '2px solid lightgrey'}}>{name}'s Bio:</h3>
                                 <p>{bio}</p>
                             </Fragment>
                         }
@@ -57,7 +52,9 @@ export default class User extends Component {
                         <a href={html_url} className="btn btn-dark my-1">See more on Github</a>
                     </div>
                 </div>
+                <Repos repos={repos}/>
             </Fragment>
+
         )
     }
 }
