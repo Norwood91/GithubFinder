@@ -2,7 +2,8 @@
 React app to search for Github profiles. 
 More features to come. 
 version 1.0.0
-
+# Check the app out here:
+https://norwood-github-finder.netlify.app/ 
 
 ### npm install
 ### npm start
