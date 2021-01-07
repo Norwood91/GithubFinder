@@ -1,47 +1,32 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, {useState} from 'react'
 
-export default class Search extends Component {
-    state = {
-        text: ''
-    }
 
-    static propTypes = {
-        searchUsers: PropTypes.func.isRequired,
-        clearUsers: PropTypes.func.isRequired,
-        showClearButton: PropTypes.bool.isRequired,
-        setAlert: PropTypes.func.isRequired,
-    }
-    //if you don't use an arrow function for the onSubmit function, you will need to include the e.preventDefault() behavior, as well as having to bind the "this" keyword to the function. You'll also need to put the .bind(this) on the form as an attribute
-    onSubmit = (e) => {
+export default function Search({searchUsers, showClearButton, clearUsers, setAlert}) {
+    const [text, setText] = useState('')
+   
+    const onSubmit = (e) => {
         e.preventDefault()
-        if (this.state.text === "") {
-            this.props.setAlert('Please enter a name', 'danger')
+        if (text === "") {
+            setAlert('Please enter a name', 'danger')
         } else {
-            //We are calling a "searchUsers" function in the props and passing in the state of text
-            this.props.searchUsers(this.state.text)
-            //setting state back to an empty string
-            this.setState({ text: "" })
+            searchUsers(text)
+            setText('')
         }
 
     }
 
-    onChange = (e) => {
-        //this is a way to set the value of mulitple inputs that you may have. You set the name attribute to the target value. 
-        this.setState({ [e.target.name]: e.target.value })
+    const onChange = (e) => {
+        setText(e.target.value)
     }
-    render() {
-        const { showClearButton, clearUsers } = this.props
-        //the conditional is saying, if showClearButton is true (if this.state.users.length > 0 (this is in the app.js) then show the clearbutton, else show nothing)
         return (
             <div>
-                <form onSubmit={this.onSubmit} className="form">
+                <form onSubmit={onSubmit} className="form">
                     <input
                         type="text"
                         name="text"
                         placeholder="Search Users..."
-                        value={this.state.text}
-                        onChange={this.onChange}
+                        value={text}
+                        onChange={onChange}
                     />
 
                     <input
@@ -58,9 +43,6 @@ export default class Search extends Component {
                 }
             </div>
 
-        )
-    }
+    )
 }
-
-
 
