@@ -1,21 +1,17 @@
-import React, { Component } from 'react'
+import React, { useEffect, Fragment } from 'react'
 import Spinner from "../layout/Spinner"
 import Repos from "../repos/Repos"
-import { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
 
-export default class User extends Component {
-    componentDidMount() {
-        this.props.getUser(this.props.match.params.login)
-        this.props.getUserRepos(this.props.match.params.login)
-    }
-
-    
-    render() {
-        const { name, avatar_url, location, bio, html_url, followers, following, hireable, company } = this.props.user
-
-        const { loading, repos } = this.props
+export default function User({user, loading, getUser, getUserRepos, repos, match}) {
+    useEffect(() => {
+        getUser(match.params.login)
+        getUserRepos(match.params.login)
+        //to mimic componentdidmount, put an empty bracket at the end of useEffect.
+        // eslint-disable-next-line 
+    }, [])
+        const { name, avatar_url, location, bio, html_url, followers, following, hireable, company } = user
 
         if (loading) return <Spinner />
 
@@ -56,7 +52,6 @@ export default class User extends Component {
             </Fragment>
 
         )
-    }
 }
 
 
